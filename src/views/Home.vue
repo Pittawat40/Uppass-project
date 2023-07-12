@@ -7,38 +7,24 @@
           <v-col cols="12">
             <div class="mt-14 search">
               <v-row>
-                <v-col cols="11">
-                  <form v-on:submit.prevent="handleSerach">
+                <v-col cols="12">
+                  <v-form v-on:submit.prevent="handleSerach" ref="form">
                     <v-text-field
                       v-model="search.text"
                       :counter="10"
                       label="Search . . ."
                       variant="outlined"
-                      :append-icon="icon"
+                      :append-inner-icon="icon"
+                      :rules="inputRules"
                     ></v-text-field>
 
-                    <!-- <v-row>
-                  <v-col sm="6" md="3">
-                    <v-checkbox
-                      label="EBOOK"
-                      type="checkbox"
-                      v-modal="search.ebook"
-                      @change="searchCheckbox(search.ebook, 'ebook')"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col sm="6" md="3">
-                    <v-checkbox
-                      label="FREE"
-                      type="checkbox"
-                      v-modal="search.free"
-                      @change="searchCheckbox(search.free, 'free')"
-                    ></v-checkbox>
-                  </v-col>
-                </v-row> -->
-                  </form>
-                </v-col>
-                <v-col cols="1">
-                  <v-icon left class="mt-5">fas fa-bars-progress</v-icon>
+                    <v-select
+                      v-model="search.value"
+                      :items="search.items"
+                      chips
+                      label="OPTION"
+                    ></v-select>
+                  </v-form>
                 </v-col>
               </v-row>
 
@@ -52,7 +38,6 @@
               >
                 submit
               </v-btn>
-
               <v-btn
                 title
                 dark
@@ -69,7 +54,6 @@
     </v-container>
 
     <v-divider></v-divider>
-
     <div class="info mt-5">
       <v-icon color="grey" left class="mx-4 mb-1">fas fa-pencil</v-icon>
       <p class="text-uppercase font-weight-bold">Books list</p>
@@ -105,10 +89,11 @@ export default defineComponent({
   data: () => ({
     search: {
       text: "",
-      ebook: false,
-      free: false,
+      value: [],
+      items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
     },
     icon: "fas fa-search",
+    inputRules: [(v) => v.length > 0 || ""],
   }),
   computed: {
     BookData() {
@@ -116,22 +101,22 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.$store.dispatch("fetchData", { text: "java" });
+    this.$store.dispatch("fetchData", { text: "python" });
   },
   methods: {
     async handleSerach() {
-      await this.$store.dispatch("fetchData", this.search);
+      if (this.$refs.form.validate() && this.search.text != "") {
+        this.$store.dispatch("fetchData", this.search);
+      }
     },
     async handleReset() {
-      // this.search = {
-      //   text: "",
-      //   ebook: false,
-      //   free: false,
-      // };
-      // console.log(this.search);
-    },
-    async searchCheckbox(val, type) {
-      this.search[type] = !val;
+      this.$refs.form.resetValidation();
+      this.$refs.form.reset();
+      this.search = {
+        text: "",
+        value: [],
+        items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
+      };
     },
   },
 });
@@ -149,7 +134,7 @@ export default defineComponent({
   text-align: center;
   padding: 12px;
   margin-bottom: 6px;
-  height: 300px;
+  height: 350px;
   width: 100%;
   color: #fff;
 }

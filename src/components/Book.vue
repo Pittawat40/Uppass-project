@@ -75,22 +75,15 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <div class="text-center">
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="6">
-            <v-container class="max-width">
-              <v-pagination class="my-4" :length="15"></v-pagination>
-            </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
   </v-container>
 
   <v-snackbar v-model="snackbar" :timeout="2000" color="success">
     <p class="text-uppercase">Successfully executed !!</p>
+    <template v-slot:actions>
+      <v-btn color="white" variant="text" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
   </v-snackbar>
 </template>
 
@@ -105,12 +98,18 @@ export default defineComponent({
       required: false,
     },
   },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   data: () => ({
     snackbar: false,
+    data: {},
   }),
+  mounted() {},
   methods: {
     async viewDetail(item) {
       localStorage.setItem("detail", JSON.stringify(item));
+
       this.$store.commit("initDataDetail", item);
       this.$router.push("/detail");
     },
@@ -126,6 +125,22 @@ export default defineComponent({
 
       this.$store.commit("initFavorite", item);
     },
+    handleScroll(event) {
+      console.log(event);
+
+      let detail = document.querySelectorAll(".detail");
+      console.log(detail);
+
+      for (let index = 0; index < detail.length; index++) {
+        let windowheight = window.innerHeight;
+        let detailtop = detail[index].getBoundingClientRect().top;
+        let detailpoint = 150;
+
+        if (detailtop < windowheight - detailpoint) {
+          detail[index].classList.add("active");
+        }
+      }
+    },
   },
 });
 </script>
@@ -136,6 +151,13 @@ export default defineComponent({
 }
 .detail {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+.active {
+  transform: translateY(0px);
+  opacity: 1;
 }
 
 .v-card-title {

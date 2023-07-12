@@ -7,8 +7,12 @@
       <p class="mx-2 text-uppercase font-weight-bold">Uppass Books</p>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-btn text class="text-yellow d-none d-sm-flex" to="/">Home</v-btn>
-    <v-btn text class="text-yellow d-none d-sm-flex">Favorite</v-btn>
+    <v-btn text class="text-yellow d-none d-sm-flex mr-1" @click="goHome"
+      >Home</v-btn
+    >
+    <v-btn text class="text-yellow d-none d-sm-flex mx-1" @click="checkData"
+      >Favorite</v-btn
+    >
 
     <v-menu location="bottom">
       <template v-slot:activator="{ props }">
@@ -18,19 +22,47 @@
       </template>
       <v-list class="d-sm-none drop-menu">
         <v-list-item to="/">
-          <v-list-item-title class="text-uppercase font-weight-bold">Home</v-list-item-title>
+          <v-list-item-title class="text-uppercase font-weight-bold"
+            >Home</v-list-item-title
+          >
         </v-list-item>
         <v-list-item>
-          <v-list-item-title class="text-uppercase font-weight-bold">Favorite</v-list-item-title>
+          <v-list-item-title class="text-uppercase font-weight-bold"
+            >Favorite</v-list-item-title
+          >
         </v-list-item>
       </v-list>
     </v-menu>
+
+    <v-snackbar v-model="snackbar" :timeout="2000" color="red-darken-2">
+      <p class="text-uppercase">Please add your favorite book !!</p>
+      <template v-slot:actions>
+        <v-btn color="white" variant="text" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app-bar>
 </template>
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    snackbar: false,
+  }),
+  methods: {
+    async goHome() {
+      this.$router.push("/");
+      window.scrollTo(0, 0);
+    },
+    async checkData() {
+      let check = JSON.parse(localStorage.getItem("favorite"));
+      if (check && check.length > 0) {
+        this.$router.push("/favorite");
+        window.scrollTo(0, 0);
+      } else this.snackbar = true;
+    },
+  },
 };
 </script>
 
@@ -54,6 +86,5 @@ header .book {
 
 .drop-menu .v-list-item-title {
   font-size: 0.8rem;
-
 }
 </style>

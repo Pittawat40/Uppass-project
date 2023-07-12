@@ -78,12 +78,13 @@
         </v-row>
       </div>
 
-      <v-snackbar
-        v-model="snackbar"
-        :timeout="2000"
-        color="success"
-      >
+      <v-snackbar v-model="snackbar" :timeout="2000" color="success">
         <p class="text-uppercase">Successfully executed !!</p>
+        <template v-slot:actions>
+          <v-btn color="white" variant="text" @click="snackbar = false">
+            Close
+          </v-btn>
+        </template>
       </v-snackbar>
     </v-container>
   </v-app>
@@ -115,6 +116,7 @@ export default defineComponent({
     snackbar: false,
   }),
   mounted() {
+    console.log(this.$route)
     this.dataDetail =
       Object.keys(this.$store.state.BookDetail).length > 0
         ? this.$store.state.BookDetail
@@ -134,9 +136,8 @@ export default defineComponent({
           title: this.dataDetail.volumeInfo.title,
           averageRating: this.dataDetail.volumeInfo.averageRating,
           previewLink: this.dataDetail.volumeInfo.previewLink,
-          description:
-            this.dataDetail.volumeInfo.description.length > 1000
-              ? this.dataDetail.volumeInfo.description.substring(0, 1000)
+          description: (this.dataDetail.volumeInfo.description && this.dataDetail.volumeInfo.description.length > 1000)
+              ? `${this.dataDetail.volumeInfo.description.substring(0, 1000)} . . .`
               : this.dataDetail.volumeInfo.description,
           publisher: this.dataDetail.volumeInfo.publisher,
           publishedDate: this.dataDetail.volumeInfo.publishedDate,
