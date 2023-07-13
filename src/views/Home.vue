@@ -34,7 +34,7 @@ export default defineComponent({
   },
   data: () => ({
     default: {
-      text: "python",
+      text: "react",
     },
   }),
   computed: {
@@ -47,4 +47,3 @@ export default defineComponent({
   },
 });
 </script>
-

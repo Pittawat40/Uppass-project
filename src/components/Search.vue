@@ -89,7 +89,7 @@ export default defineComponent({
   methods: {
     async handleSerach() {
       if (this.$refs.form.validate() && this.search.text != "") {
-        Promise.all[await this.$store.dispatch("fetchData", this.search)];
+        await this.$store.dispatch("fetchData", this.search);
       }
     },
     async handleReset() {

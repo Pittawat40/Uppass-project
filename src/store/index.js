@@ -7,7 +7,15 @@ const store = createStore({
     BookDetail: {},
     ApiKey: "AIzaSyAMMkXHUl8TfnybIy_MhbKpQxtU1RsoAHQ",
   },
-  getters: {},
+  getters: {
+    filterData(state) {
+      let data = state.BookData.items.filter((e) => {
+        return e.volumeInfo.averageRating;
+      });
+      
+      return data;
+    },
+  },
   mutations: {
     initData(state, commit) {
       let local = JSON.parse(localStorage.getItem("favorite"));
@@ -53,7 +61,7 @@ const store = createStore({
           .then(async (res) => {
             if (res.status == 200) {
               store.commit("initData", res.data);
-            } 
+            }
           })
           .catch((err) => {
             console.log(err);
