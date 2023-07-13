@@ -58,13 +58,6 @@
     <!-- =============  search  ============= -->
 
     <!-- =============  book detail  ============= -->
-    <div class="info mt-5" v-if="flagCheckData">
-      <v-icon color="grey" left class="mx-4 mb-1">fas fa-pencil</v-icon>
-      <p class="text-uppercase font-weight-bold">Books list</p>
-    </div>
-    <div class="line" v-if="flagCheckData">
-      <v-divider :thickness="2" class="border-opacity-100 mt-2"></v-divider>
-    </div>
     <Book :val="BookData" />
     <!-- =============  book detail  ============= -->
 
@@ -109,7 +102,6 @@ export default defineComponent({
     icon: "fas fa-search",
     inputRules: [(v) => v.length > 0 || ""],
     snackbar: false,
-    flagCheckData: true,
   }),
   computed: {
     BookData() {
@@ -124,12 +116,8 @@ export default defineComponent({
       if (this.$refs.form.validate() && this.search.text != "") {
         Promise.all[
           (await this.$store.dispatch("fetchData", this.search),
-          await this.checkData("search"))
+          await this.checkData())
         ];
-
-        setTimeout(async () => {
-          await this.handleRow();
-        }, 500);
       }
     },
     async handleReset() {
@@ -141,9 +129,14 @@ export default defineComponent({
         items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
       };
     },
-    async checkData(flag) {
-      this.flagCheckData = this.$store.state.BookData.totalItems > 0 ? true : false;
-      if (flag && !this.flagCheckData) this.snackbar = true;
+    async checkData() {
+      this.snackbar = this.$store.state.BookData.totalItems == 0 ? true : false;
+
+      if (!this.snackbar) {
+        setTimeout(async () => {
+          await this.handleRow();
+        }, 500);
+      }
     },
     async handleRow() {
       let detail = document.querySelectorAll(".detail");
@@ -170,20 +163,6 @@ export default defineComponent({
   height: 350px;
   width: 100%;
   color: #fff;
-}
-
-.info {
-  width: 85%;
-  margin: auto;
-  padding: 1rem;
-  font-size: 1.5rem;
-  display: flex;
-  white-space: nowrap;
-}
-
-.line {
-  width: 80%;
-  margin: auto;
 }
 
 .search {

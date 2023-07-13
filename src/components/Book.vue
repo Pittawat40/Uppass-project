@@ -1,4 +1,14 @@
 <template>
+  <v-row class="mt-3" v-if="checkData">
+    <div class="info mt-5">
+      <v-icon color="grey" left class="mx-4 mb-1">fas fa-pencil</v-icon>
+      <p class="text-uppercase font-weight-bold">Books list</p>
+    </div>
+    <div class="line">
+      <v-divider :thickness="2" class="border-opacity-100 mt-2"></v-divider>
+    </div>
+  </v-row>
+
   <v-container class="container-book">
     <v-row>
       <v-col v-for="n in val.items" :key="n" cols="12" md="3" sm="6">
@@ -103,8 +113,14 @@ export default defineComponent({
   },
   data: () => ({
     snackbar: false,
+    checkData: false,
     data: {},
   }),
+  watch: {
+    "$store.state.BookData": function (val) {
+      this.checkData = val.totalItems == 0 ? false : true;
+    },
+  },
   mounted() {
     setTimeout(async () => {
       let detail = document.querySelectorAll(".detail");
@@ -157,11 +173,25 @@ export default defineComponent({
   box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
   transform: translateY(150px);
   opacity: 0;
-  transition: all .8s ease;
+  transition: all 0.8s ease;
 }
 .active {
   transform: translateY(0px);
   opacity: 1;
+}
+
+.info {
+  width: 85%;
+  margin: auto;
+  padding: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  white-space: nowrap;
+}
+
+.line {
+  width: 80%;
+  margin: auto;
 }
 
 .v-card-title {

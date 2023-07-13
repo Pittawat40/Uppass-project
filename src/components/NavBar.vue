@@ -1,10 +1,14 @@
 <template>
   <v-app-bar app color="black" dark flat class="px-12">
     <v-btn class="text-h6">
-      <v-icon color="yellow" left class="mr-2 mb-1 book"
+      <v-icon color="yellow" left class="mr-5 mb-1 book"
         >fas fa-book-open</v-icon
       >
-      <p class="mx-2 text-uppercase font-weight-bold">Uppass Books</p>
+      <div class="head-text">
+        <p class="text-uppercase font-weight-bold print-text">
+          Uppass Books
+        </p>
+      </div>
     </v-btn>
     <v-spacer></v-spacer>
     <v-btn text class="text-yellow d-none d-sm-flex mr-1" @click="goHome"
@@ -86,5 +90,30 @@ header .book {
 
 .drop-menu .v-list-item-title {
   font-size: 0.8rem;
+}
+
+.head-text {
+  display: inline-block;
+}
+
+.print-text {
+  width: 100%;
+  overflow: hidden;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  border-right: 2px solid;
+  animation: typing 2s steps(18), cursor 0.4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
 }
 </style>
