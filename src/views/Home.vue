@@ -142,8 +142,7 @@ export default defineComponent({
       };
     },
     async checkData(flag) {
-      this.flagCheckData =
-        this.$store.state.BookData.totalItems > 0 ? true : false;
+      this.flagCheckData = this.$store.state.BookData.totalItems > 0 ? true : false;
       if (flag && !this.flagCheckData) this.snackbar = true;
     },
     async handleRow() {

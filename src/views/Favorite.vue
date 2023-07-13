@@ -143,8 +143,18 @@ export default defineComponent({
     dataFavorite: [],
     snackbar: false,
   }),
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   mounted() {
     this.dataFavorite = JSON.parse(localStorage.getItem("favorite"));
+
+    setTimeout(async () => {
+      let detail = document.querySelectorAll(".detail");
+      for (let index = 0; index < detail.length; index++) {
+        if (index < 4) detail[index].classList.add("active");
+      }
+    }, 500);
   },
   methods: {
     async viewDetail(item) {
@@ -161,6 +171,19 @@ export default defineComponent({
 
       this.$store.commit("initFavorite", item);
       if (this.dataFavorite.length == 0) this.$router.push("/");
+    },
+    handleScroll() {
+      let detail = document.querySelectorAll(".detail");
+
+      for (let index = 0; index < detail.length; index++) {
+        let windowheight = window.innerHeight;
+        let detailtop = detail[index].getBoundingClientRect().top;
+        let detailpoint = 150;
+
+        if (detailtop < windowheight - detailpoint) {
+          detail[index].classList.add("active");
+        }
+      }
     },
   },
 });
@@ -183,6 +206,14 @@ export default defineComponent({
 
 .detail {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.active {
+  transform: translateY(0px);
+  opacity: 1;
 }
 
 .line {
