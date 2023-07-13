@@ -126,10 +126,7 @@ export default defineComponent({
       this.$store.commit("initFavorite", item);
     },
     handleScroll(event) {
-      console.log(event);
-
       let detail = document.querySelectorAll(".detail");
-      console.log(detail);
 
       for (let index = 0; index < detail.length; index++) {
         let windowheight = window.innerHeight;

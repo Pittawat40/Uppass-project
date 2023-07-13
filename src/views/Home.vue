@@ -92,6 +92,9 @@ export default defineComponent({
       value: [],
       items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
     },
+    default: {
+      text: "python"
+    },
     icon: "fas fa-search",
     inputRules: [(v) => v.length > 0 || ""],
   }),
@@ -101,7 +104,12 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.$store.dispatch("fetchData", { text: "python" });
+    this.$store.dispatch("fetchData", this.default);
+  },
+  watch: {
+    // page: function (page) {
+    //   this.handlePaginate(page)
+    // },
   },
   methods: {
     async handleSerach() {
