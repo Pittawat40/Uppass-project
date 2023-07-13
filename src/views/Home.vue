@@ -69,13 +69,29 @@
       <v-divider></v-divider>
 
       <div class="text-uppercase">
-        {{ new Date().getFullYear() }} — <strong>Pittawat Samroengsin</strong>
+        <v-icon color="white" left class="mx-4 mb-1"
+          >fas fa-circle-check</v-icon
+        >
+
+        {{ new Date().getFullYear() }} — <span>Pittawat Samroengsin</span>
       </div>
     </v-footer>
+
+    <a id="button">
+      <v-btn
+        icon="fas fa-arrow-up"
+        border
+        height="40"
+        width="40"
+        variant="text"
+        color="yellow"
+        @click="backtoTop"
+      ></v-btn>
+    </a>
   </v-app>
 
   <v-snackbar v-model="snackbar" :timeout="2000" color="red-darken-2">
-    <p class="text-uppercase">Data search not found !!</p>
+    <p class="text-uppercase">Error data not found !!</p>
     <template v-slot:actions>
       <v-btn color="white" variant="text" @click="snackbar = false">
         Close
@@ -114,6 +130,9 @@ export default defineComponent({
       return this.$store.state.BookData;
     },
   },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   mounted() {
     this.$store.dispatch("fetchData", this.default);
   },
@@ -122,7 +141,7 @@ export default defineComponent({
       if (this.$refs.form.validate() && this.search.text != "") {
         Promise.all[
           (await this.$store.dispatch("fetchData", this.search),
-          await this.checkData())
+          await this.checkData("search"))
         ];
       }
     },
@@ -135,12 +154,19 @@ export default defineComponent({
         items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
       };
     },
-    async checkData() {
-      if (this.$store.state.BookData.totalItems > 0) this.flagCheckData = true
-      else {
-        this.flagCheckData = false
-        this.snackbar = true
-      }
+    async checkData(flag) {
+      this.flagCheckData = this.$store.state.BookData.totalItems > 0 ? true : false;
+      if (flag && !this.flagCheckData) this.snackbar = true;
+    },
+    handleScroll() {
+      let btn = document.querySelector("#button");
+      if (window.scrollY > 200) btn.classList.add("show");
+      else btn.classList.remove("show");
+    },
+    backtoTop() {
+      document.getElementById("home").scrollIntoView({
+        behavior: "smooth",
+      });
     },
   },
 });
@@ -161,6 +187,29 @@ export default defineComponent({
   height: 350px;
   width: 100%;
   color: #fff;
+}
+
+#button {
+  background-color: #000;
+  display: inline-block;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+
+#button:hover {
+  background-color: #232323;
+}
+
+#button.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .info {

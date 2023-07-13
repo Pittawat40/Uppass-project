@@ -51,10 +51,9 @@ const store = createStore({
             `https://www.googleapis.com/books/v1/volumes?q='${commit.text}'${filter}&maxResults=20&key=${this.state.ApiKey}`
           )
           .then(async (res) => {
-            console.log(res);
             if (res.status == 200) {
               store.commit("initData", res.data);
-            }
+            } 
           })
           .catch((err) => {
             console.log(err);

@@ -125,7 +125,7 @@ export default defineComponent({
 
       this.$store.commit("initFavorite", item);
     },
-    handleScroll(event) {
+    handleScroll() {
       let detail = document.querySelectorAll(".detail");
 
       for (let index = 0; index < detail.length; index++) {
