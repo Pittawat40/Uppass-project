@@ -4,9 +4,9 @@
       <v-row>
         <v-col cols="12">
           <div class="mt-14 search">
-            <v-row>
-              <v-col cols="12">
-                <v-form v-on:submit.prevent="handleSerach" ref="form">
+            <v-form v-on:submit.prevent="handleSerach" ref="form">
+              <v-row>
+                <v-col cols="12">
                   <v-text-field
                     v-model="search.text"
                     :counter="10"
@@ -22,29 +22,28 @@
                     chips
                     label="OPTION"
                   ></v-select>
-                </v-form>
-              </v-col>
-            </v-row>
-
-            <v-btn
-              title
-              dark
-              class="text-yellow me-4 mt-2"
-              type="button"
-              variant="outlined"
-              @click="handleSerach"
-            >
-              submit
-            </v-btn>
-            <v-btn
-              title
-              dark
-              class="text-yellow mt-2"
-              variant="outlined"
-              @click="handleReset"
-            >
-              clear
-            </v-btn>
+                </v-col>
+              </v-row>
+              <v-btn
+                title
+                dark
+                class="text-yellow me-4 mt-2"
+                type="submit"
+                variant="outlined"
+                @click="handleSerach"
+              >
+                submit
+              </v-btn>
+              <v-btn
+                title
+                dark
+                class="text-yellow mt-2"
+                variant="outlined"
+                @click="handleReset"
+              >
+                clear
+              </v-btn>
+            </v-form>
           </div>
         </v-col>
       </v-row>

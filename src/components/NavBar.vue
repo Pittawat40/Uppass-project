@@ -25,12 +25,12 @@
         </v-btn>
       </template>
       <v-list class="d-sm-none drop-menu">
-        <v-list-item to="/">
+        <v-list-item @click="goHome">
           <v-list-item-title class="text-uppercase font-weight-bold"
             >Home</v-list-item-title
           >
         </v-list-item>
-        <v-list-item>
+        <v-list-item @click="checkData">
           <v-list-item-title class="text-uppercase font-weight-bold"
             >Favorite</v-list-item-title
           >

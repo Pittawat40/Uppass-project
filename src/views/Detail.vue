@@ -154,7 +154,7 @@ export default defineComponent({
           publishedDate: this.dataDetail.volumeInfo.publishedDate,
           pageCount: this.dataDetail.volumeInfo.pageCount,
           pageCount: this.dataDetail.volumeInfo.pageCount,
-          authors: this.dataDetail.volumeInfo.authors.toString(),
+          authors: this.dataDetail.volumeInfo.authors ? this.dataDetail.volumeInfo.authors.toString() : "",
           printType: this.dataDetail.volumeInfo.printType,
           language: this.dataDetail.volumeInfo.language,
           contentVersion: this.dataDetail.volumeInfo.contentVersion,
