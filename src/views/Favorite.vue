@@ -1,6 +1,8 @@
 <template>
-  <v-app id="favorite">
+  <v-app id="home">
     <NavBar />
+
+    <!-- =============  favorite detail  ============= -->
     <v-container fluid class="container">
       <div class="navigate">
         <v-breadcrumbs :items="items" divider="/"></v-breadcrumbs>
@@ -96,27 +98,35 @@
           </v-col>
         </v-row>
       </v-container>
-
-      <v-snackbar v-model="snackbar" :timeout="2000" color="success">
-        <p class="text-uppercase">Successfully executed !!</p>
-        <template v-slot:actions>
-          <v-btn color="white" variant="text" @click="snackbar = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
     </v-container>
+    <!-- =============  favorite detail  ============= -->
+
+    <Footer />
+    <Scroll />
   </v-app>
+
+  <v-snackbar v-model="snackbar" :timeout="2000" color="success">
+    <p class="text-uppercase">Successfully executed !!</p>
+    <template v-slot:actions>
+      <v-btn color="white" variant="text" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
+import Scroll from "@/components/Scroll.vue";
 
 export default defineComponent({
   name: "Favorite",
   components: {
     NavBar,
+    Footer,
+    Scroll,
   },
   data: () => ({
     items: [

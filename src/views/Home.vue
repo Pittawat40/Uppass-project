@@ -1,6 +1,8 @@
 <template>
   <v-app id="home">
     <NavBar />
+
+    <!-- =============  search  ============= -->
     <v-container fluid class="container">
       <div class="head">
         <v-row>
@@ -52,42 +54,22 @@
         </v-row>
       </div>
     </v-container>
-
     <v-divider></v-divider>
+    <!-- =============  search  ============= -->
+
+    <!-- =============  book detail  ============= -->
     <div class="info mt-5" v-if="flagCheckData">
       <v-icon color="grey" left class="mx-4 mb-1">fas fa-pencil</v-icon>
       <p class="text-uppercase font-weight-bold">Books list</p>
     </div>
-
     <div class="line" v-if="flagCheckData">
       <v-divider :thickness="2" class="border-opacity-100 mt-2"></v-divider>
     </div>
-
     <Book :val="BookData" />
+    <!-- =============  book detail  ============= -->
 
-    <v-footer class="bg-grey text-center d-flex flex-column">
-      <v-divider></v-divider>
-
-      <div class="text-uppercase">
-        <v-icon color="white" left class="mx-4 mb-1"
-          >fas fa-circle-check</v-icon
-        >
-
-        {{ new Date().getFullYear() }} — <span>Pittawat Samroengsin</span>
-      </div>
-    </v-footer>
-
-    <a id="button">
-      <v-btn
-        icon="fas fa-arrow-up"
-        border
-        height="40"
-        width="40"
-        variant="text"
-        color="yellow"
-        @click="backtoTop"
-      ></v-btn>
-    </a>
+    <Footer />
+    <Scroll />
   </v-app>
 
   <v-snackbar v-model="snackbar" :timeout="2000" color="red-darken-2">
@@ -104,12 +86,16 @@
 import { defineComponent, ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import Book from "@/components/Book.vue";
+import Footer from "@/components/Footer.vue";
+import Scroll from "@/components/Scroll.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
     NavBar,
     Book,
+    Footer,
+    Scroll,
   },
   data: () => ({
     search: {
@@ -130,9 +116,6 @@ export default defineComponent({
       return this.$store.state.BookData;
     },
   },
-  created() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
   mounted() {
     this.$store.dispatch("fetchData", this.default);
   },
@@ -143,6 +126,10 @@ export default defineComponent({
           (await this.$store.dispatch("fetchData", this.search),
           await this.checkData("search"))
         ];
+
+        setTimeout(async () => {
+          await this.handleRow();
+        }, 500);
       }
     },
     async handleReset() {
@@ -155,18 +142,15 @@ export default defineComponent({
       };
     },
     async checkData(flag) {
-      this.flagCheckData = this.$store.state.BookData.totalItems > 0 ? true : false;
+      this.flagCheckData =
+        this.$store.state.BookData.totalItems > 0 ? true : false;
       if (flag && !this.flagCheckData) this.snackbar = true;
     },
-    handleScroll() {
-      let btn = document.querySelector("#button");
-      if (window.scrollY > 200) btn.classList.add("show");
-      else btn.classList.remove("show");
-    },
-    backtoTop() {
-      document.getElementById("home").scrollIntoView({
-        behavior: "smooth",
-      });
+    async handleRow() {
+      let detail = document.querySelectorAll(".detail");
+      for (let index = 0; index < detail.length; index++) {
+        if (index < 4) detail[index].classList.add("active");
+      }
     },
   },
 });
@@ -187,29 +171,6 @@ export default defineComponent({
   height: 350px;
   width: 100%;
   color: #fff;
-}
-
-#button {
-  background-color: #000;
-  display: inline-block;
-  text-align: center;
-  border-radius: 4px;
-  position: fixed;
-  bottom: 30px;
-  right: 20px;
-  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
-}
-
-#button:hover {
-  background-color: #232323;
-}
-
-#button.show {
-  opacity: 1;
-  visibility: visible;
 }
 
 .info {

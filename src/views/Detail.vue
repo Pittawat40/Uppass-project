@@ -1,6 +1,8 @@
 <template>
-  <v-app id="detail">
+  <v-app id="home">
     <NavBar />
+
+    <!-- =============  book detail  ============= -->
     <v-container fluid class="container">
       <div class="navigate">
         <v-breadcrumbs :items="items" divider="/"></v-breadcrumbs>
@@ -77,27 +79,32 @@
           </v-col>
         </v-row>
       </div>
-
-      <v-snackbar v-model="snackbar" :timeout="2000" color="success">
-        <p class="text-uppercase">Successfully executed !!</p>
-        <template v-slot:actions>
-          <v-btn color="white" variant="text" @click="snackbar = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
     </v-container>
+    <!-- =============  book detail  ============= -->
+
+    <Footer />
   </v-app>
+
+  <v-snackbar v-model="snackbar" :timeout="2000" color="success">
+    <p class="text-uppercase">Successfully executed !!</p>
+    <template v-slot:actions>
+      <v-btn color="white" variant="text" @click="snackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
 
 export default defineComponent({
   name: "Detail",
   components: {
     NavBar,
+    Footer,
   },
   data: () => ({
     items: [
@@ -116,7 +123,6 @@ export default defineComponent({
     snackbar: false,
   }),
   mounted() {
-    console.log(this.$route)
     this.dataDetail =
       Object.keys(this.$store.state.BookDetail).length > 0
         ? this.$store.state.BookDetail
@@ -136,8 +142,13 @@ export default defineComponent({
           title: this.dataDetail.volumeInfo.title,
           averageRating: this.dataDetail.volumeInfo.averageRating,
           previewLink: this.dataDetail.volumeInfo.previewLink,
-          description: (this.dataDetail.volumeInfo.description && this.dataDetail.volumeInfo.description.length > 1000)
-              ? `${this.dataDetail.volumeInfo.description.substring(0, 1000)} . . .`
+          description:
+            this.dataDetail.volumeInfo.description &&
+            this.dataDetail.volumeInfo.description.length > 1000
+              ? `${this.dataDetail.volumeInfo.description.substring(
+                  0,
+                  1000
+                )} . . .`
               : this.dataDetail.volumeInfo.description,
           publisher: this.dataDetail.volumeInfo.publisher,
           publishedDate: this.dataDetail.volumeInfo.publishedDate,
@@ -153,7 +164,6 @@ export default defineComponent({
     },
     async addFavorite(item) {
       this.form.favorite = this.form.favorite == true ? false : true;
-
       this.$store.commit("initFavorite", item);
     },
   },

@@ -105,7 +105,14 @@ export default defineComponent({
     snackbar: false,
     data: {},
   }),
-  mounted() {},
+  mounted() {
+    setTimeout(async () => {
+      let detail = document.querySelectorAll(".detail");
+      for (let index = 0; index < detail.length; index++) {
+        if (index < 4) detail[index].classList.add("active");
+      }
+    }, 1000);
+  },
   methods: {
     async viewDetail(item) {
       localStorage.setItem("detail", JSON.stringify(item));
@@ -150,7 +157,7 @@ export default defineComponent({
   box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
   transform: translateY(150px);
   opacity: 0;
-  transition: all 1s ease;
+  transition: all .8s ease;
 }
 .active {
   transform: translateY(0px);
