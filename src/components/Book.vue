@@ -109,9 +109,9 @@ export default defineComponent({
   methods: {
     async viewDetail(item) {
       localStorage.setItem("detail", JSON.stringify(item));
-
       this.$store.commit("initDataDetail", item);
       this.$router.push("/detail");
+      window.scrollTo(0, 0);
     },
     async addFavorite(item) {
       let index = this.val.items.findIndex(function (e) {
