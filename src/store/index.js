@@ -12,8 +12,11 @@ const store = createStore({
       let data = state.BookData.items.filter((e) => {
         return e.volumeInfo.averageRating;
       });
-      
       return data;
+    },
+    randomData(state) {
+      const index = Math.floor(Math.random() * state.BookData.items.length);
+      return state.BookData.items[index];
     },
   },
   mutations: {

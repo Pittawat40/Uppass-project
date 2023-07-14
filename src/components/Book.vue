@@ -179,6 +179,9 @@
   </v-container>
   <!-- =============  best rating list  ============= -->
 
+  <Dialog />
+
+
   <v-snackbar v-model="snackbar" :timeout="2000" color="success">
     <p class="text-uppercase">Successfully executed !!</p>
     <template v-slot:actions>
@@ -191,8 +194,12 @@
 
 <script>
 import { defineComponent, ref } from "vue";
+import Dialog from "./Dialog.vue";
 
 export default defineComponent({
+  components: {
+    Dialog,
+  },
   props: {
     val: {
       type: Object,
