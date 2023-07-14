@@ -15,7 +15,7 @@
           </div>
           <v-card-text @click="viewDetail(result)" class="body-dialog">
             <v-col cols="12">
-              <v-card color="#1F7087" theme="dark" class="text-dialog">
+              <v-card color="#1F7087" theme="dark">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-row>
                     <v-col cols="12" md="7">
@@ -119,10 +119,6 @@ export default defineComponent({
 .line {
   width: 85%;
   margin: auto;
-}
-
-.text-dialog {
-  width: 450px;
 }
 
 .img-dialog {
