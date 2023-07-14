@@ -4,7 +4,11 @@
       <v-row>
         <v-col cols="12">
           <div class="mt-14 search">
-            <v-form v-on:submit.prevent="handleSerach" ref="form">
+            <v-form
+              v-on:submit.prevent="handleSerach"
+              ref="form"
+              lazy-validation
+            >
               <v-row>
                 <v-col cols="12">
                   <v-text-field
@@ -13,7 +17,9 @@
                     label="Search . . ."
                     variant="outlined"
                     append-inner-icon="fas fa-search"
+                    id="searchBar"
                     :rules="inputRules"
+                    @blur="resetValidate"
                   ></v-text-field>
 
                   <v-select
@@ -70,7 +76,7 @@ export default defineComponent({
       value: [],
       items: ["EBOOKS", "FREE-EBOOKS", "PAID-EBOOKS"],
     },
-    inputRules: [(v) => v.length > 0 || ""],
+    inputRules: [(v) => (v && v.length > 0) || ""],
     snackbar: false,
   }),
   watch: {
@@ -104,6 +110,12 @@ export default defineComponent({
       let detail = document.querySelectorAll(".detail");
       for (let index = 0; index < detail.length; index++) {
         if (index < 4) detail[index].classList.add("active");
+      }
+    },
+    resetValidate() {
+      if ((!this.search.text || this.search.text == "") && (!this.search.value || this.search.value.length == 0)) {
+        this.$refs.form.resetValidation();
+        this.$refs.form.reset();
       }
     },
   },
