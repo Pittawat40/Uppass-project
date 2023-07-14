@@ -85,6 +85,11 @@ export default defineComponent({
       return this.$store.getters.randomData;
     },
   },
+  watch: {
+    "$store.state.BookData": function (val) {
+      this.openDialog = true
+    },
+  },
   methods: {
     handleScroll() {
       if (window.scrollY > 800 && this.openDialog) {
