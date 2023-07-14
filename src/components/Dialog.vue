@@ -64,6 +64,7 @@
             <v-btn
               color="primary"
               block
+              id="closeDialog"
               @click="(openDialog = false), (dialog = false)"
               >Close</v-btn
             >
@@ -98,12 +99,12 @@ export default defineComponent({
   methods: {
     handleScroll() {
       if (window.scrollY > 800 && this.openDialog) {
-        let dialogBtn = document.querySelector("#dialog");
+        document.querySelector("#dialog").click();
         this.openDialog = false;
-        dialogBtn.click();
 
         setTimeout(() => {
-          dialogBtn.click();
+          let dialog = document.querySelector("#closeDialog");
+          if (dialog) dialog.click()
         }, 2500);
       }
     },
