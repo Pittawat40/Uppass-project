@@ -123,6 +123,7 @@ export default defineComponent({
     snackbar: false,
   }),
   mounted() {
+    window.scrollTo(0, 0)
     this.dataDetail =
       Object.keys(this.$store.state.BookDetail).length > 0
         ? this.$store.state.BookDetail

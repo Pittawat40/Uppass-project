@@ -6,7 +6,7 @@
       </v-col>
       <v-col cols="12" md="3" sm="6">
         <ul class="list">
-          <li><a href="#" class="title-list">About Us</a></li>
+          <li><a class="title-list">About Us</a></li>
           <li><a href="#">Privacy Policy</a></li>
           <li><a href="#">Corporate Info</a></li>
           <li><a href="#">Sitemap</a></li>
@@ -14,7 +14,7 @@
       </v-col>
       <v-col cols="12" md="3" sm="6">
         <ul class="list">
-          <li><a href="#" class="title-list">Our Services</a></li>
+          <li><a class="title-list">Our Services</a></li>
           <li><a href="#">Tracking Order</a></li>
           <li><a href="#">Returning Policy</a></li>
           <li><a href="#">Refund Policy</a></li>
@@ -22,7 +22,7 @@
       </v-col>
       <v-col cols="12" md="3" sm="6">
         <ul class="list">
-          <li><a href="#" class="title-list">Contact</a></li>
+          <li><a class="title-list">Contact</a></li>
           <li>
             <span class="mail">
               <v-icon left class="mr-5">fas fa-envelope</v-icon

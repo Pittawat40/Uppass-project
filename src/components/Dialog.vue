@@ -99,18 +99,18 @@ export default defineComponent({
   methods: {
     handleScroll() {
       if (window.scrollY > 800 && this.openDialog) {
-        document.querySelector("#dialog").click();
+        let dialog = document.querySelector("#dialog");
+        if (dialog) dialog.click();
         this.openDialog = false;
 
         setTimeout(() => {
-          let dialog = document.querySelector("#closeDialog");
-          if (dialog) dialog.click()
+          let closeDialog = document.querySelector("#closeDialog");
+          if (closeDialog) closeDialog.click();
         }, 2500);
       }
     },
     async viewDetail(item) {
       localStorage.setItem("detail", JSON.stringify(item));
-
       this.$store.commit("initDataDetail", item);
       this.$router.push("/detail");
     },

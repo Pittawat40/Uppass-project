@@ -159,7 +159,6 @@ export default defineComponent({
   methods: {
     async viewDetail(item) {
       localStorage.setItem("detail", JSON.stringify(item));
-
       this.$store.commit("initDataDetail", item);
       this.$router.push("/detail");
     },
