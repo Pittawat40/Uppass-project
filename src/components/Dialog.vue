@@ -29,7 +29,7 @@
                             {{ result.volumeInfo.language }}</span
                           >
                         </v-card-subtitle>
-                        
+
                         <v-card-subtitle>
                           <v-rating
                             :model-value="result.volumeInfo.averageRating"
@@ -87,14 +87,19 @@ export default defineComponent({
   },
   watch: {
     "$store.state.BookData": function (val) {
-      this.openDialog = true
+      this.openDialog = true;
     },
   },
   methods: {
     handleScroll() {
       if (window.scrollY > 800 && this.openDialog) {
-        document.querySelector("#dialog").click();
+        let dialogBtn = document.querySelector("#dialog");
         this.openDialog = false;
+        dialogBtn.click();
+
+        setTimeout(() => {
+          dialogBtn.click();
+        }, 3000);
       }
     },
     async viewDetail(item) {
