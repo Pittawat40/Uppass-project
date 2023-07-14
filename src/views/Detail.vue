@@ -51,14 +51,23 @@
               >Preview</v-btn
             >
             <v-divider vertical class="mx-2"></v-divider>
-            <v-btn
-              class="mt-5 mx-5"
-              variant="outlined"
-              icon="fas fa-heart"
-              :color="this.form.favorite ? 'red-lighten-2' : 'grey-lighten-2'"
-              size="x-small"
-              @click="addFavorite(this.dataDetail, (snackbar = true))"
-            ></v-btn>
+            <v-hover v-slot="{ isHovering, props }">
+              <v-btn
+                class="mt-5 mx-5"
+                variant="outlined"
+                icon="fas fa-heart"
+                v-bind="props"
+                :color="
+                  this.form.favorite
+                    ? 'pink-lighten-2'
+                    : isHovering
+                    ? 'pink-lighten-2'
+                    : 'grey-lighten-2'
+                "
+                size="x-small"
+                @click="addFavorite(this.dataDetail, (snackbar = true))"
+              ></v-btn>
+            </v-hover>
           </v-col>
         </v-row>
 
@@ -123,7 +132,7 @@ export default defineComponent({
     snackbar: false,
   }),
   mounted() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.dataDetail =
       Object.keys(this.$store.state.BookDetail).length > 0
         ? this.$store.state.BookDetail
@@ -155,7 +164,9 @@ export default defineComponent({
           publishedDate: this.dataDetail.volumeInfo.publishedDate,
           pageCount: this.dataDetail.volumeInfo.pageCount,
           pageCount: this.dataDetail.volumeInfo.pageCount,
-          authors: this.dataDetail.volumeInfo.authors ? this.dataDetail.volumeInfo.authors.toString() : "",
+          authors: this.dataDetail.volumeInfo.authors
+            ? this.dataDetail.volumeInfo.authors.toString()
+            : "",
           printType: this.dataDetail.volumeInfo.printType,
           language: this.dataDetail.volumeInfo.language,
           contentVersion: this.dataDetail.volumeInfo.contentVersion,

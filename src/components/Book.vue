@@ -67,14 +67,24 @@
           <v-divider class="mx-4 mb-1"></v-divider>
 
           <v-card-actions>
-            <v-btn
-              class="ma-2"
-              variant="outlined"
-              icon="fas fa-heart"
-              :color="n.favorite ? 'red-lighten-2' : 'grey-lighten-2'"
-              size="x-small"
-              @click="addFavorite(n, (snackbar = true))"
-            ></v-btn>
+            <v-hover v-slot="{ isHovering, props }">
+              <v-btn
+                class="ma-2"
+                variant="outlined"
+                icon="fas fa-heart"
+                v-bind="props"
+                :color="
+                  n.favorite
+                    ? 'pink-lighten-2'
+                    : isHovering
+                    ? 'pink-lighten-2'
+                    : 'grey-lighten-2'
+                "
+                size="x-small"
+                @click="addFavorite(n, (snackbar = true))"
+              ></v-btn>
+            </v-hover>
+
             <v-btn
               color="deep-purple-lighten-2"
               variant="text"
@@ -157,14 +167,23 @@
           <v-divider class="mx-4 mb-1"></v-divider>
 
           <v-card-actions>
-            <v-btn
-              class="ma-2"
-              variant="outlined"
-              icon="fas fa-heart"
-              :color="n.favorite ? 'red-lighten-2' : 'grey-lighten-2'"
-              size="x-small"
-              @click="addFavorite(n, (snackbar = true))"
-            ></v-btn>
+            <v-hover v-slot="{ isHovering, props }">
+              <v-btn
+                class="ma-2"
+                variant="outlined"
+                icon="fas fa-heart"
+                v-bind="props"
+                :color="
+                  n.favorite
+                    ? 'pink-lighten-2'
+                    : isHovering
+                    ? 'pink-lighten-2'
+                    : 'grey-lighten-2'
+                "
+                size="x-small"
+                @click="addFavorite(n, (snackbar = true))"
+              ></v-btn>
+            </v-hover>
             <v-btn
               color="deep-purple-lighten-2"
               variant="text"
@@ -180,7 +199,6 @@
   <!-- =============  best rating list  ============= -->
 
   <Dialog />
-
 
   <v-snackbar v-model="snackbar" :timeout="2000" color="success">
     <p class="text-uppercase">Successfully executed !!</p>
@@ -233,11 +251,11 @@ export default defineComponent({
   },
   methods: {
     async filterData() {
-      this.bestRating = []
+      this.bestRating = [];
       let result = this.$store.getters.filterData;
       if (result.length > 0) {
         for (let index = 0; index < result.length; index++) {
-          if (index < 4) this.bestRating.push(result[index])
+          if (index < 4) this.bestRating.push(result[index]);
         }
       }
       this.checkDataBestRating = result.length == 0 ? false : true;
@@ -317,5 +335,4 @@ export default defineComponent({
 .v-img {
   cursor: pointer;
 }
-
 </style>
