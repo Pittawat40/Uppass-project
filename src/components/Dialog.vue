@@ -20,7 +20,7 @@
                   <v-row>
                     <v-col cols="12" md="7">
                       <div>
-                        <v-card-title class="text-h6">
+                        <v-card-title class="text-h6 title-dialog">
                           {{ result.volumeInfo.title }}
                         </v-card-title>
                         <v-card-subtitle>
@@ -61,7 +61,12 @@
             </v-col>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+            <v-btn
+              color="primary"
+              block
+              @click="(openDialog = false), (dialog = false)"
+              >Close</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -99,7 +104,7 @@ export default defineComponent({
 
         setTimeout(() => {
           dialogBtn.click();
-        }, 3000);
+        }, 2500);
       }
     },
     async viewDetail(item) {
@@ -119,6 +124,10 @@ export default defineComponent({
 
 .body-dialog {
   cursor: pointer;
+}
+
+.title-dialog {
+  max-width: 400px;
 }
 
 .line {

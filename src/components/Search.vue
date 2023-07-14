@@ -30,7 +30,6 @@
                 class="text-yellow me-4 mt-2"
                 type="submit"
                 variant="outlined"
-                @click="handleSerach"
               >
                 submit
               </v-btn>
