@@ -175,7 +175,11 @@ export default defineComponent({
       ];
     },
     async addFavorite(item) {
-      this.form.favorite = this.form.favorite == true ? false : true;
+      if (!this.form.favorite) {
+        this.form.favorite = true;
+        item.favorite = true;
+      } else this.form.favorite = false;
+
       this.$store.commit("initFavorite", item);
     },
   },
