@@ -20,7 +20,6 @@ export default defineConfig({
       },
     }),
   ],
-  base: "myapp",
   define: { 'process.env': {} },
   resolve: {
     alias: {
