@@ -20,6 +20,7 @@ export default defineConfig({
       },
     }),
   ],
+  base: "Uppass-project",
   define: { 'process.env': {} },
   resolve: {
     alias: {
