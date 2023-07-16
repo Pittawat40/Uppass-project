@@ -10,7 +10,6 @@ const routes = [
         path: '/',
         name: 'Home',
         component: () => import('@/App.vue'),
-        
       },
       {
         path: '/detail',

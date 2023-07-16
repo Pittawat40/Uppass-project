@@ -1,5 +1,5 @@
 // Components
-import App from './App.vue'
+import App from './views/Home.vue'
 
 // Composables
 import { createApp } from 'vue'
