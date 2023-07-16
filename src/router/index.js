@@ -7,17 +7,17 @@ const routes = [
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
-        path: 'Uppass-project/',
+        path: '/myapp/',
         name: 'Home',
         component: () => import('@/views/Home.vue'),
       },
       {
-        path: 'Uppass-project/detail',
+        path: '/myapp/detail',
         name: 'Detail',
         component: () => import('@/views/Detail.vue'),
       },
       {
-        path: 'Uppass-project/favorite',
+        path: '/myapp/favorite',
         name: 'Favotite',
         component: () => import('@/views/Favorite.vue'),
       },
