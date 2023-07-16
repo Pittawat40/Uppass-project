@@ -7,17 +7,17 @@ const routes = [
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
-        path: '/Uppass-project/',
+        path: 'Uppass-project/',
         name: 'Home',
         component: () => import('@/views/Home.vue'),
       },
       {
-        path: '/Uppass-project/detail',
+        path: 'Uppass-project/detail',
         name: 'Detail',
         component: () => import('@/views/Detail.vue'),
       },
       {
-        path: '/Uppass-project/favorite',
+        path: 'Uppass-project/favorite',
         name: 'Favotite',
         component: () => import('@/views/Favorite.vue'),
       },
@@ -25,10 +25,8 @@ const routes = [
   },
 ]
 
-console.log(process.env.BASE_URL)
-
 const router = createRouter({
-  history: createWebHistory("Uppass-project"),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 })
 
