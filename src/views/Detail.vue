@@ -42,6 +42,7 @@
               <p class="text-uppercase mr-2">Version</p>
               : {{ this.form.contentVersion }}</span
             >
+            
             <v-btn
               text
               class="text-green mt-5"
