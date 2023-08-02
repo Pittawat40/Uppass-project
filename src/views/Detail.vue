@@ -190,6 +190,7 @@ export default defineComponent({
 <style scoped>
 .container {
   padding: 20px;
+  margin-bottom: 5rem;
 }
 
 .navigate {
